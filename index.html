@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Receipt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      margin: 0;
+      padding: 20px;
+    }
+    .receipt {
+      max-width: 420px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+    .header img {
+      max-height: 40px;
+      margin-bottom: 10px;
+    }
+    .branch-info {
+      font-size: 0.9em;
+      color: #666;
+    }
+    .items {
+      margin-top: 20px;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+    .total {
+      font-weight: bold;
+      border-top: 1px solid #ccc;
+      margin-top: 15px;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .related-products {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .related-products img {
+      width: 30%;
+      border-radius: 6px;
+    }
+    .membership {
+      margin-top: 20px;
+    }
+    .membership a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: white;
+      background: #000;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt">
+    <div class="header">
+      <img id="brand-logo" src="" alt="Brand Logo" />
+      <div class="branch-info" id="store-info">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+    <div class="items">
+      <div class="item"><span>Ribbed Crop Top</span><span>€9.99</span></div>
+      <div class="item"><span>Slim Fit Jeans</span><span>€29.99</span></div>
+      <div class="item"><span>Canvas Tote Bag</span><span>€12.99</span></div>
+      <div class="item"><span>VAT (20%)</span><span>€10.19</span></div>
+      <div class="total"><span>Total</span><span>€62.96</span></div>
+    </div>
+
+    <div class="footer">
+      <h4>Complete the Look</h4>
+      <div class="related-products">
+        <a href="https://www.pexels.com/photo/woman-in-white-blazer-6311397/" target="_blank">
+          <img src="https://images.pexels.com/photos/6311397/pexels-photo-6311397.jpeg" alt="Lightweight Blazer" />
+        </a>
+        <a href="https://www.pexels.com/photo/woman-wearing-brown-ankle-boots-6311398/" target="_blank">
+          <img src="https://images.pexels.com/photos/6311398/pexels-photo-6311398.jpeg" alt="Ankle Boots" />
+        </a>
+        <a href="https://www.pexels.com/photo/brown-leather-coin-purse-6311400/" target="_blank">
+          <img src="https://images.pexels.com/photos/6311400/pexels-photo-6311400.jpeg" alt="Coin Purse" />
+        </a>
+      </div>
+
+      <div class="membership">
+        <p>Join our Membership for exclusive perks</p>
+        <a id="membership-link" href="#" target="_blank">Become a Member</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const brand = params.get('brand') || 'hm';
+
+    const brands = {
+      hm: {
+        logo: 'https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg',
+        store: 'H&M Istanbul Istinye Park',
+        memberLink: 'https://www2.hm.com/en_eur/member/info.html'
+      },
+      lacoste: {
+        logo: 'https://worldvectorlogo.com/logos/lacoste-logo.svg',
+        store: 'Lacoste Kanyon Istanbul',
+        memberLink: 'https://www.lacoste.com/us/lacoste-membership.html'
+      },
+      lcw: {
+        logo: 'https://www.fashioncity-outlet.gr/wp-content/uploads/2020/01/img_LCWaikiki.png',
+        store: 'LC Waikiki Cevahir AVM',
+        memberLink: 'https://www.lcwaikiki.com/tr-TR/TR/uyelik'
+      }
+    };
+
+    const selected = brands[brand.toLowerCase()] || brands.hm;
+
+    document.getElementById('brand-logo').src = selected.logo;
+    document.getElementById('store-info').innerHTML = `
+      ${selected.store}<br/>
+      Receipt #: 8723648392<br/>
+      May 5, 2025 – 16:42
+    `;
+    document.getElementById('membership-link').href = selected.memberLink;
+  </script>
+</body>
+</html>
